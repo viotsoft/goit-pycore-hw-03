@@ -1,20 +1,28 @@
 from datetime import datetime
 
-# Створіть функцію get_days_from_today(date)
-
 
 def get_days_from_today(date):
-    # Функція приймає один параметр:дату у форматі 'РРРР-ММ-ДД' (наприклад, '2020-10-09').
-    given_date = datetime.strptime(date, "%Y-%m-%d")
-# Отримайте поточну дату, використовуючи
+    """
+    Функція приймає один параметр: дату у форматі 'YYYY-MM-DD'.
+    """
+    try:
+        given_date = datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError(
+            "Неправильний формат дати. Використовуйте формат 'YYYY-MM-DD'.")
+
+    # Отримуємо поточну дату
     today = datetime.now()
-# Розрахуйте різницю між поточною датою та заданою датою.
+    # Розрахунок різниці в днях
     difference = (today - given_date).days
-# Поверніть різницю у днях як ціле число.
     return difference
 
 
-date_input = "2025-10-30"
+# Приклад використання
+date_input = "2024-10-30"
 
-days_difference = get_days_from_today(date_input)
-print(f"Скільки днів з {date_input} до сьогодні: {days_difference}")
+try:
+    days_difference = get_days_from_today(date_input)
+    print(f"Скільки днів з {date_input} до сьогодні: {days_difference}")
+except ValueError as e:
+    print(e)
